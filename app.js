@@ -26,15 +26,10 @@ app.get("/", function(req, res) {
 
 // Wallet作成API
 app.get("/create_wallet", function(req, res) {
-  const wallet = Wallet.generate();
-  const privateKey = wallet.getPrivateKeyString();
-  const pubKey = wallet.getAddressString();
-  return res.send({
-    key: {
-      privateKey: privateKey,
-      pubKey: pubKey
-    }
-  });
+  const account = web3.eth.accounts.create();
+  const privateKey = account['privateKey'];
+  console.log(web3.eth.accounts.privateKeyToAccount('0xc5e5f5bf13203cd1dc8cd03c3f2095ac9090c7283d72fa601311b96743109cf9'));
+  return res.send(account);
 });
 
 // コントラクトからあるアカウントのトークンのバランスを取得するapi
