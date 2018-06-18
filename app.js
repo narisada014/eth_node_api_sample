@@ -5,9 +5,11 @@ var Web3 = require('web3');
 // web3のインスタンス作成
 var web3 = new Web3();
 // web3とgethで起動中のport:8545のhttp-rpcサーバーと接続
-web3.setProvider(new web3.providers.HttpProvider('http://localhost:8545'));
+web3.setProvider(new web3.providers.HttpProvider('https://ropsten.infura.io/6l7dU6kKHKeUEmDBGq2J'));
 // 一番最初に生成したアカウントをデフォルトのアカウントと定義
 web3.eth.defaultAccount=web3.eth.accounts[0];
+
+var Wallet = require('ethereumjs-wallet');
 
 // コントラクトのabi定義
 var abi = [{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},
@@ -20,6 +22,19 @@ var app = express();
 // テスト用hello world
 app.get("/", function(req, res) {
   return res.send('Hello World');
+});
+
+// Wallet作成API
+app.get("/create_wallet", function(req, res) {
+  const wallet = Wallet.generate();
+  const privateKey = wallet.getPrivateKeyString();
+  const pubKey = wallet.getAddressString();
+  return res.send({
+    key: {
+      privateKey: privateKey,
+      pubKey: pubKey
+    }
+  });
 });
 
 // コントラクトからあるアカウントのトークンのバランスを取得するapi
