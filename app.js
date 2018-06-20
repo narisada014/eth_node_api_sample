@@ -1,3 +1,4 @@
+// ※秘密鍵、公開鍵、http-tpcサーバーはテストネットのものなので安全
 // expressサーバーの定義
 var express = require('express');
 // web3のインポート
