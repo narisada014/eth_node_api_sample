@@ -29,7 +29,8 @@ app.get("/", function(req, res) {
 app.get("/create_wallet", function(req, res) {
   const account = web3.eth.accounts.create();
   const privateKey = account['privateKey'];
-  console.log(web3.eth.accounts.privateKeyToAccount('0xc5e5f5bf13203cd1dc8cd03c3f2095ac9090c7283d72fa601311b96743109cf9'));
+  // コンソールにアカウントが作成されたかどうか表示
+  console.log(web3.eth.accounts.privateKeyToAccount(privateKey));
   return res.send(account);
 });
 
